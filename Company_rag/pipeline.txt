@@ -1,0 +1,26 @@
+chat pipeline in main.py file - 
+
+1. Input Processing:
+User questions are initially processed through a pipeline (RunnableParallel) to extract relevant information from the chat history and condense the question into a standalone format.
+The condensed question is then passed through OpenAI's GPT-3.5 model (model_name='gpt-3.5-turbo') with a temperature parameter set to 0 to generate a refined version of the question.
+
+2. Data Retrieval:
+After obtaining the refined question, a retriever is used to fetch related data from the FAISS vector database.
+This retrieved data is used as context for answering the refined question.
+
+3. Answer Generation:
+The refined question and retrieved context are input into GPT-3.5 again to generate an answer.
+The temperature parameter is set to 0.2 to moderate the creativity of the model's responses.
+
+4. Response to User:
+The generated answer is provided as a response to the user's original question.
+
+5. Chat History Maintenance:
+Both the original question from the user and the generated answer are appended to the chat history.
+
+6. User Interaction:
+The chatbot interface allows users to engage in a conversation by asking questions and receiving answers based on the relevant data stored in the database.
+
+
+database.py file - 
+this code processes text data stored in Markdown files along with associated metadata, converts them into numerical vectors using OpenAI embeddings, and stores them in a FAISS vector database for efficient similarity search or other NLP tasks.
